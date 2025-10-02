@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Docs Agent - Generator Makalah</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.2);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border-left-color: #fff;
+            animation: spin 1s ease infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        /* Custom scrollbar for better aesthetics */
+        textarea::-webkit-scrollbar {
+            width: 8px;
+        }
+        textarea::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 10px;
+        }
+        textarea::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        textarea::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <!-- Header -->
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-10 border-b border-slate-200">
+        <nav class="container mx-auto max-w-5xl px-4 py-3 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-2">
+                <svg class="h-8 w-8 text-sky-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><path d="m12 15-1.912 4.813a2 2 0 0 1-1.275 1.275L4 22l4.813-1.912a2 2 0 0 1 1.275-1.275L15 14Z"/></svg>
+                <span class="text-xl font-bold text-slate-800">AI Docs Agent</span>
+            </a>
+            <span class="text-sm font-medium text-sky-500 bg-sky-100 px-3 py-1 rounded-full">Beta</span>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container mx-auto max-w-5xl px-4 py-10 md:py-16">
+        
+        <!-- Hero Section -->
+        <section class="text-center">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight">Ciptakan Makalah Ilmiah</h1>
+            <h1 class="text-4xl md:text-5xl font-extrabold text-sky-500 tracking-tight mt-2">Berkualitas dalam Sekejap</h1>
+            <p class="mt-6 max-w-2xl mx-auto text-lg text-slate-600">Masukkan topik Anda dan biarkan AI menyusun draf makalah ilmiah yang terstruktur, lengkap dengan pendahuluan, tinjauan pustaka, hingga kesimpulan.</p>
+        </section>
+
+        <!-- Generator Card -->
+        <section class="mt-10">
+            <div class="bg-white p-6 md:p-8 rounded-2xl shadow-lg border border-slate-200">
+                <div class="flex flex-col md:flex-row md:items-end gap-4">
+                    <div class="flex-grow">
+                        <label for="topicInput" class="block text-sm font-medium text-slate-700 mb-2">Masukkan Topik Makalah Anda</label>
+                        <input type="text" id="topicInput" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 transition" placeholder="Contoh: Dampak AI terhadap Pasar Tenaga Kerja Global">
+                    </div>
+                    <button id="generateBtn" class="w-full md:w-auto bg-sky-500 text-white font-semibold px-6 py-3 rounded-lg hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 transition-all transform active:scale-95 flex items-center justify-center gap-2">
+                        <svg id="generateIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3L12 3c-1.05.006-2.09.22-3.07.625 1.026.04 2.05.158 3.07.348 1.023-.19 2.048-.308 3.075-.348C14.091 3.22 13.05 3.006 12 3zM12 3L12 3c-1.05.006-2.09.22-3.07.625-1.31.54-2.52 1.28-3.57 2.23-.49.44-.93.92-1.32 1.44a4.93 4.93 0 00-.5 1.39C3.21 9.77 3 10.87 3 12c.005 1.05.22 2.09.625 3.07a5.13 5.13 0 001.44 2.24c.44.49.92.93 1.44 1.32.92.74 1.88 1.38 2.88 1.88C9.82 20.87 10.89 21 12 21c1.05-.006 2.09-.22 3.07-.625.99-.49 1.93-1.12 2.81-1.84.5-.42.96-.89 1.38-1.42.87-1.05 1.54-2.22 1.99-3.48.44-1.24.66-2.52.66-3.81 0-1.05-.22-2.09-.625-3.07a5.13 5.13 0 00-1.44-2.24c-.44-.49-.92-.93-1.44-1.32C17.08 4.8 16.12 4.16 15.12 3.66 14.18 3.21 13.11 3 12 3zM12 3L12 3c-1.05.006-2.09.22-3.07.625C10.038 3.585 11.02 3.55 12 3.55s1.962.036 3.07.075C14.091 3.22 13.05 3.006 12 3z"/><path d="M12 7.27a4.93 4.93 0 00-1.39 1.02l-3.54 3.54a2 2 0 000 2.83l3.54 3.54c.46.46 1.02.8 1.64.97"/></svg>
+                        <div id="loading" class="spinner hidden"></div>
+                        <span id="generateBtnText">Buat Makalah</span>
+                    </button>
+                </div>
+
+                <div id="error" class="hidden mt-4 bg-red-100 border border-red-300 text-red-800 px-4 py-3 rounded-lg" role="alert">
+                    <strong class="font-bold">Oops!</strong>
+                    <span class="block sm:inline" id="errorMessage">Terjadi kesalahan.</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Result Section -->
+        <section id="resultContainer" class="hidden mt-10">
+            <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden">
+                <div class="p-6 md:p-8">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-4">Hasil Makalah</h2>
+                    <textarea id="makalahContent" readonly class="w-full h-96 p-4 border border-slate-200 rounded-lg bg-slate-50 focus:ring-2 focus:ring-sky-400 focus:border-sky-400" placeholder="Hasil akan muncul di sini..."></textarea>
+                </div>
+                
+                <div id="downloadSection" class="bg-slate-50/50 p-6 border-t border-slate-200 flex flex-col sm:flex-row items-center gap-4">
+                    <label for="formatSelect" class="font-medium text-slate-700">Pilih Format Unduhan:</label>
+                    <select id="formatSelect" class="flex-grow sm:flex-grow-0 sm:w-48 px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-sky-400">
+                        <option value="docx">DOCX (Word)</option>
+                        <option value="pdf">PDF</option>
+                        <option value="md">Markdown (.md)</option>
+                    </select>
+                    <button id="downloadBtn" class="w-full sm:w-auto bg-emerald-500 text-white font-semibold px-6 py-2 rounded-lg hover:bg-emerald-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-all transform active:scale-95 flex items-center justify-center gap-2 ml-auto">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                        <span>Unduh File</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center py-8 text-slate-500">
+        <p>&copy; 2025 AI Docs Agent. Developed by Naufal Devops.</p>
+    </footer>
+
+    <script>
+        const topicInput = document.getElementById('topicInput');
+        const generateBtn = document.getElementById('generateBtn');
+        const generateBtnText = document.getElementById('generateBtnText');
+        const generateIcon = document.getElementById('generateIcon');
+        const loadingDiv = document.getElementById('loading');
+        const errorDiv = document.getElementById('error');
+        const errorMessage = document.getElementById('errorMessage');
+        const resultContainer = document.getElementById('resultContainer');
+        const makalahContent = document.getElementById('makalahContent');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const formatSelect = document.getElementById('formatSelect');
+
+        const setLoadingState = (isLoading) => {
+            if (isLoading) {
+                generateBtn.disabled = true;
+                generateBtn.classList.add('opacity-75', 'cursor-not-allowed');
+                generateBtnText.textContent = "Memproses...";
+                generateIcon.classList.add('hidden');
+                loadingDiv.classList.remove('hidden');
+            } else {
+                generateBtn.disabled = false;
+                generateBtn.classList.remove('opacity-75', 'cursor-not-allowed');
+                generateBtnText.textContent = "Buat Makalah";
+                generateIcon.classList.remove('hidden');
+                loadingDiv.classList.add('hidden');
+            }
+        };
+        
+        const generateMakalah = async () => {
+            const topic = topicInput.value.trim();
+            if (!topic) {
+                showError("Topik tidak boleh kosong.");
+                return;
+            }
+
+            setLoadingState(true);
+            resultContainer.classList.add('hidden');
+            errorDiv.classList.add('hidden');
+
+            try {
+                const response = await fetch('/generate-makalah', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ topic: topic })
+                });
+
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                
+                const result = await response.json();
+                
+                if (result.content) {
+                    makalahContent.value = result.content;
+                    resultContainer.classList.remove('hidden');
+                    window.scrollTo({ top: resultContainer.offsetTop - 80, behavior: 'smooth' });
+                } else {
+                    showError("Gagal mendapatkan konten dari server.");
+                }
+
+            } catch (err) {
+                console.error("Fetch error:", err);
+                showError("Tidak dapat terhubung ke server. Pastikan server backend berjalan.");
+            } finally {
+                setLoadingState(false);
+            }
+        };
+
+        const downloadFile = async () => {
+            const content = makalahContent.value;
+            const format = formatSelect.value;
+            const title = content.split('\n')[0].trim() || "makalah_tanpa_judul";
+
+            if (!content) {
+                showError("Tidak ada konten untuk diunduh.");
+                return;
+            }
+
+            try {
+                const response = await fetch('/download', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ content, format, title })
+                });
+
+                if (!response.ok) throw new Error(`Download error! status: ${response.status}`);
+
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = url;
+                
+                const disposition = response.headers.get('Content-Disposition');
+                let filename = `${title}.${format}`;
+                if (disposition && disposition.indexOf('attachment') !== -1) {
+                    const filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+                    const matches = filenameRegex.exec(disposition);
+                    if (matches != null && matches[1]) {
+                        filename = matches[1].replace(/['"]/g, '');
+                    }
+                }
+                
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                a.remove();
+
+            } catch (err) {
+                console.error("Download fetch error:", err);
+                showError("Gagal mengunduh file.");
+            }
+        };
+
+        const showError = (message) => {
+            errorMessage.textContent = message;
+            errorDiv.classList.remove('hidden');
+        };
+
+        generateBtn.addEventListener('click', generateMakalah);
+        downloadBtn.addEventListener('click', downloadFile);
+        topicInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                generateMakalah();
+            }
+        });
+    </script>
+
+</body>
+</html>
+
